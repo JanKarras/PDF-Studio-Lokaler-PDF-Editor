@@ -1,3 +1,5 @@
+from contextlib import closing
+
 import pypdfium2 as pdfium
 
 from .errors import StudioError
@@ -6,7 +8,7 @@ from .errors import StudioError
 def renderPage(pageRef, width=240):
     try:
         with pdfium.PdfDocument(str(pageRef.source)) as document:
-            with document[pageRef.index] as page:
+            with closing(document[pageRef.index]) as page:
                 pageWidth, pageHeight = page.get_size()
                 effectiveWidth = pageHeight if pageRef.rotation % 180 else pageWidth
                 scale = min(width / max(effectiveWidth, 1), 2.0, 1600 / max(pageWidth, pageHeight, 1))
