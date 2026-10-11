@@ -37,6 +37,18 @@ jobs:
         env:
           QT_QPA_PLATFORM: windows
         run: python scripts/run_build.py
+      - name: Record verification summary
+        shell: python
+        run: |
+          import json
+          import os
+          from pathlib import Path
+          from xml.etree import ElementTree
+          suite = ElementTree.parse("test-results.xml").getroot().find("testsuite")
+          report = json.loads(Path("dist/smoke-report.json").read_text())
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
+              summary.write(f"Tests: {suite.attrib}. Packaged native Windows smoke: {report}.\n")
+          print(f"::notice title=Verified Windows application::Tests: {suite.attrib}. Smoke: {report}")
       - name: Verify package contents
         shell: python
         run: |
