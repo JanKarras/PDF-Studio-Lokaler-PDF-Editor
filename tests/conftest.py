@@ -19,12 +19,13 @@ def pdfFiles(tmp_path):
                 page = document.add_blank_page(page_size=size)
                 page.Rotate = (index * 90) % 360
                 page.obj["/StudioMarker"] = f"{number}-{index}"
+                page.Contents = document.make_stream(b"q 0.2 0.4 0.8 rg 20 20 80 100 re f Q")
             document.save(path)
         files.append(path)
     return files
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def app():
     return QApplication.instance() or QApplication([])
 

@@ -33,7 +33,7 @@ def exportPdf(pages, target, overwrite=False, progress=None):
                 output.pages.append(sources[page.source].pages[page.index])
                 copied = output.pages[-1]
                 copied.Rotate = (int(copied.obj.get("/Rotate", 0)) + page.rotation) % 360
-                if progress:
+                if progress and (index % 32 == 0 or index + 1 == len(pages)):
                     progress(index + 1, len(pages))
             descriptor, tempName = tempfile.mkstemp(prefix=".pdf-studio-", suffix=".pdf", dir=target.parent)
             tempPath = Path(tempName)

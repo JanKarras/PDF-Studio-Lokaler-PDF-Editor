@@ -27,11 +27,15 @@ jobs:
         shell: python
         run: |
           import os
-          from pdf_studio import __version__
-          assert os.environ['GITHUB_REF_NAME'] == 'v' + __version__
+          import tomllib
+          from pathlib import Path
+          version = tomllib.loads(Path("pyproject.toml").read_text())["project"]["version"]
+          assert os.environ['GITHUB_REF_NAME'] == 'v' + version
       - name: Automated PDF and GUI tests
         run: python scripts/run_tests.py
       - name: Build portable application and run packaged smoke test
+        env:
+          QT_QPA_PLATFORM: windows
         run: python scripts/run_build.py
       - name: Verify package contents
         shell: python
@@ -42,6 +46,7 @@ jobs:
           with zipfile.ZipFile('dist/PDF-Studio-Windows.zip') as package:
               names = package.namelist()
               assert 'PDF-Studio/PDF-Studio.exe' in names
+              assert any(name.endswith('qwindows.dll') for name in names)
               assert any('pdfium' in name.lower() and name.endswith('.dll') for name in names)
               assert any('pikepdf' in name.lower() and name.endswith('.pyd') for name in names)
               assert any('licenses/' in name and 'pdfium' in name.lower() for name in names)
