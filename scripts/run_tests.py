@@ -4,8 +4,14 @@ import sys
 
 
 def main():
-    result = subprocess.run([sys.executable, "-m", "pytest", "-q", "--junitxml=test-results.xml"],
-                            text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    try:
+        result = subprocess.run([sys.executable, "-u", "-m", "pytest", "-vv", "--junitxml=test-results.xml"],
+                                text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=180)
+    except subprocess.TimeoutExpired as error:
+        output = error.stdout or b""
+        if isinstance(output, bytes):
+            output = output.decode("utf-8", errors="replace")
+        result = subprocess.CompletedProcess(error.cmd, 1, output + "\nTest timeout after 180 seconds")
     print(result.stdout)
     if result.returncode:
         escaped = result.stdout[-50000:].replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
