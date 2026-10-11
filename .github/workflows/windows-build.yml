@@ -30,9 +30,9 @@ jobs:
           from pdf_studio import __version__
           assert os.environ['GITHUB_REF_NAME'] == 'v' + __version__
       - name: Automated PDF and GUI tests
-        run: python -m pytest -q --junitxml=test-results.xml
+        run: python scripts/run_tests.py
       - name: Build portable application and run packaged smoke test
-        run: python scripts/build.py
+        run: python scripts/run_build.py
       - name: Verify package contents
         shell: python
         run: |
