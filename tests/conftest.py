@@ -6,7 +6,7 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 import pikepdf
 import pytest
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication, QMessageBox
 
 
 @pytest.fixture
@@ -30,15 +30,18 @@ def app():
 
 
 @pytest.fixture
-def window(app):
+def window(app, monkeypatch):
     from pdf_studio.ui.window import MainWindow
     instance = MainWindow()
+    instance.testErrors = []
+    monkeypatch.setattr(QMessageBox, "warning", lambda *args: instance.testErrors.append(str(args[2])))
     instance.show()
     app.processEvents()
     yield instance
     instance.history.saved = instance.history.pages
     instance.close()
     app.processEvents()
+    assert not instance.testErrors, instance.testErrors
 
 
 def waitUntil(app, condition, timeout=10):

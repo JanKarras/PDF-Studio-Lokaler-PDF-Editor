@@ -42,7 +42,7 @@ def exportPdf(pages, target, overwrite=False, progress=None):
         with pikepdf.open(tempPath) as check:
             if len(check.pages) != len(pages):
                 raise StudioError("Die exportierte PDF konnte nicht verifiziert werden.")
-        with tempPath.open("rb") as stream:
+        with tempPath.open("rb+") as stream:
             os.fsync(stream.fileno())
         if overwrite:
             os.replace(tempPath, target)

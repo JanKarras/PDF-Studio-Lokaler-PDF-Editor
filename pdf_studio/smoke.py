@@ -38,6 +38,7 @@ def runSmoke(arguments):
             QTimer.singleShot(10000, application.quit)
             application.exec()
             assert window.closing, "Window did not close normally"
+            assert window.thumbnailCache, "GUI did not receive a rendered thumbnail"
             result = {"status": "passed", "renderSize": [width, height], "pages": 1, "gui": True}
         code = 0
     except Exception as error:
