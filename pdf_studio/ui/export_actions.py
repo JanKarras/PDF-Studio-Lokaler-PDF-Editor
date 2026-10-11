@@ -12,7 +12,8 @@ class ExportActions:
     def savePages(self, pages, markSaved=False):
         if not pages or self.busy:
             return
-        target, _ = QFileDialog.getSaveFileName(self, "PDF als neue Datei speichern", "PDF-Studio.pdf", "PDF-Dateien (*.pdf)")
+        target, _ = QFileDialog.getSaveFileName(self, "PDF als neue Datei speichern", "PDF-Studio.pdf", "PDF-Dateien (*.pdf)",
+                                               options=QFileDialog.Option.DontConfirmOverwrite)
         if not target:
             return
         if Path(target).suffix.lower() != ".pdf":

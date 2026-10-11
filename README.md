@@ -120,8 +120,9 @@ PDFium-/Qt-Drittkomponenten in das Windows-Paket.
   über Programmstarts hinweg gespeichert.
 - Große Quellen benötigen temporären Speicherplatz; vollständige Quellkopien
   fallen einmal pro Import an. Bei großen Exporten kann die Verarbeitung Speicher benötigen.
-- Sichere Veröffentlichung neuer Dateien verwendet Hardlinks. Dateisysteme ohne
-  Hardlink-Unterstützung melden einen Speicherfehler, statt unsicher zu überschreiben.
+- Neue Dateien werden unter Windows ohne Überschreiben umbenannt (auch auf FAT/exFAT).
+  Die Linux-Entwicklungsvariante benötigt hierfür Hardlinks; Dateisysteme ohne
+  Hardlink-Unterstützung melden einen Speicherfehler.
 - Das Windows-Paket ist nicht digital signiert.
 
 Für 1.1 sind Arbeitsbereichspeicherung, Lesezeichenübernahme, weiterführende

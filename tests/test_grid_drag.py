@@ -45,3 +45,25 @@ def testShiftAndControlMouseSelection(window, app, pdfFiles):
     QTest.mouseClick(viewport, Qt.MouseButton.LeftButton, Qt.KeyboardModifier.ControlModifier,
                      window.grid.visualItemRect(window.grid.item(4)).center())
     assert len(window.selectionIds()) == 4
+
+
+def testMouseGestureStartsInternalPageDrag(window, app, pdfFiles, monkeypatch):
+    from PySide6.QtCore import QEvent, QPoint
+    from PySide6.QtGui import QMouseEvent
+    from PySide6.QtTest import QTest
+    from PySide6.QtWidgets import QApplication
+    from pdf_studio.ui import drop_grid
+    window.addFiles([str(pdfFiles[0])])
+    waitUntil(app, lambda: not window.busy)
+    calls = []
+    drag = SimpleNamespace(setMimeData=lambda mime: calls.append("mime"), exec=lambda action: calls.append("drag"))
+    monkeypatch.setattr(drop_grid, "QDrag", lambda source: drag)
+    viewport = window.grid.viewport()
+    origin = window.grid.visualItemRect(window.grid.item(0)).center()
+    destination = origin + QPoint(40, 0)
+    QTest.mousePress(viewport, Qt.MouseButton.LeftButton, Qt.KeyboardModifier.NoModifier, origin)
+    event = QMouseEvent(QEvent.Type.MouseMove, QPointF(destination), QPointF(viewport.mapToGlobal(destination)),
+                        Qt.MouseButton.NoButton, Qt.MouseButton.LeftButton, Qt.KeyboardModifier.NoModifier)
+    QApplication.sendEvent(viewport, event)
+    QTest.mouseRelease(viewport, Qt.MouseButton.LeftButton, Qt.KeyboardModifier.NoModifier, destination)
+    assert "mime" in calls and "drag" in calls

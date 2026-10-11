@@ -5,6 +5,7 @@ import tempfile
 
 import pikepdf
 
+from .atomic import publishNew
 from .errors import StudioError
 
 
@@ -47,9 +48,7 @@ def exportPdf(pages, target, overwrite=False, progress=None):
         if overwrite:
             os.replace(tempPath, target)
         else:
-            # Hard-link publication never replaces a concurrently created destination.
-            os.link(tempPath, target)
-            tempPath.unlink()
+            publishNew(tempPath, target)
         return target
     except (OSError, pikepdf.PdfError) as error:
         raise StudioError(f"PDF konnte nicht gespeichert werden: {error}") from error

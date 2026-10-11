@@ -15,7 +15,7 @@ class ThumbnailActions:
             item = self.grid.item(index)
             if self.grid.visualItemRect(item).intersects(viewport):
                 visible.append((item, page))
-            else:
+            elif not item.icon().isNull():
                 item.setIcon(QIcon())
         width = int(self.grid.iconSize().width() * self.devicePixelRatioF())
         for item, page in visible:
