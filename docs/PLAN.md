@@ -14,3 +14,12 @@ Export liest jede benötigte Quelle einmal. PDFium läuft ausschließlich in ein
 einzelnen Hintergrundthread. Vorschaubilder werden nur für sichtbare Seiten
 angefordert und begrenzt zwischengespeichert. Schreibjobs blockieren Änderungen
 am Arbeitsbereich, aber nicht das Qt-Ereignissystem.
+
+## Abgeschlossene Schritte
+
+PDF-Kern, deutsche Qt-Oberfläche, asynchrone Vorschauen, alle Seitenaktionen,
+Undo/Redo, sichere Exporte, Tests, Windows-Paket und CI sind implementiert.
+Der Windows-Build mit 49 Tests und nativem Paket-Smoke-Test ist verifiziert;
+Details stehen in VERIFICATION.md. Echte Screenshots und vollständige
+Lizenzhinweise einschließlich Qt-Quellen sind Teil der Distribution.
+Die taggesteuerte Veröffentlichung übernimmt dieselben Prüfschritte.

@@ -104,6 +104,8 @@ die gebaute EXE und veröffentlicht ZIP sowie Prüfreports als Artifacts.
 verifizierten Windows-Build und veröffentlicht Windows-ZIP sowie Quellcode-ZIP
 mit `GITHUB_TOKEN`. Nur der Veröffentlichungsjob besitzt Schreibrechte.
 
+Die dokumentierten Prüfergebnisse stehen in [docs/VERIFICATION.md](docs/VERIFICATION.md).
+
 ## Lizenzen
 
 PDF Studio: **GPL-3.0-or-later**, siehe [LICENSE](LICENSE).
