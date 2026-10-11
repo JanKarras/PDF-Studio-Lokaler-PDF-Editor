@@ -14,8 +14,8 @@ jobs:
       QT_QPA_PLATFORM: offscreen
       PYTHONUTF8: '1'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
           cache: pip
@@ -50,7 +50,7 @@ jobs:
               assert any('pdfium' in name.lower() and name.endswith('.dll') for name in names)
               assert any('pikepdf' in name.lower() and name.endswith('.pyd') for name in names)
               assert any('licenses/' in name and 'pdfium' in name.lower() for name in names)
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: PDF-Studio-Windows
           path: |
@@ -60,7 +60,7 @@ jobs:
           retention-days: 30
       - name: Upload test and smoke reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: verification-reports
           path: |

@@ -5,6 +5,7 @@ from PySide6.QtCore import QThreadPool, QTimer
 from PySide6.QtWidgets import QMainWindow
 
 from pdf_studio.core.history import History
+from .branding import applicationIcon
 from .edits import EditActions
 from .export_actions import ExportActions
 from .grid import PageGrid
@@ -23,6 +24,7 @@ class MainWindow(EditActions, ExportActions, HistoryActions, ImportActions, Life
                  RangeActions, TaskActions, ThumbnailActions, ViewActions, QMainWindow):
     def __init__(self):
         super().__init__()
+        self.setWindowIcon(applicationIcon())
         self.workspace = TemporaryDirectory(prefix="pdf-studio-")
         self.history = History()
         self.busy = False

@@ -5,10 +5,12 @@ import sys
 import zipfile
 
 from collect_licenses import collectLicenses
+from create_icon import createIcon
 
 
 def build():
     collectLicenses("licenses/generated")
+    createIcon()
     subprocess.run([sys.executable, "-m", "PyInstaller", "--noconfirm", "--clean", "PDF-Studio.spec"], check=True)
     destination = Path("dist/PDF-Studio")
     shutil.copytree("licenses/generated", destination / "licenses", dirs_exist_ok=True)

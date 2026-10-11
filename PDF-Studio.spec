@@ -13,5 +13,5 @@ a = Analysis(['run_studio.py'], pathex=['.'], binaries=allBinaries,
              excludes=['tkinter', 'PySide6.QtTest'], noarchive=False)
 pyz = PYZ(a.pure)
 exe = EXE(pyz, a.scripts, [], exclude_binaries=True, name='PDF-Studio',
-          debug=False, strip=False, upx=False, console=False)
+          debug=False, strip=False, upx=False, console=False, icon='build/pdf-studio.ico')
 coll = COLLECT(exe, a.binaries, a.datas, strip=False, upx=False, name='PDF-Studio')

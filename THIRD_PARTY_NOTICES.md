@@ -25,6 +25,8 @@ technischen Beschränkungen dafür. Keine Bibliothek wurde modifiziert.
 
 Der Build kopiert die Lizenzdateien **der tatsächlich installierten Wheels**
 einschließlich PDFium-BUILD_LICENSES und Qt-Lizenzdateien in den Ordner licenses.
+Qt-6.10.1-Quellen sind außerdem unter
+https://download.qt.io/archive/qt/6.10/6.10.1/single/ verfügbar.
 Das Manifest enthält Namen, Versionen und Projekt-/Quelllinks aller installierten
 Pakete. Python-Lizenztexte werden ebenfalls übernommen. Die zugehörigen Quellen
 von PDF Studio werden als PDF-Studio-Source.zip zusammen mit dem Windows-Paket
