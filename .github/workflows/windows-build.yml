@@ -1,0 +1,64 @@
+name: Windows Build
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  workflow_call:
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    env:
+      QT_QPA_PLATFORM: offscreen
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements*.txt
+      - name: Install dependencies
+        run: python -m pip install -r requirements-dev.txt
+      - name: Check version on release tags
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: python
+        run: |
+          import os
+          from pdf_studio import __version__
+          assert os.environ['GITHUB_REF_NAME'] == 'v' + __version__
+      - name: Automated PDF and GUI tests
+        run: python -m pytest -q --junitxml=test-results.xml
+      - name: Build portable application and run packaged smoke test
+        run: python scripts/build.py
+      - name: Verify package contents
+        shell: python
+        run: |
+          import json, zipfile
+          from pathlib import Path
+          assert json.loads(Path('dist/smoke-report.json').read_text())['status'] == 'passed'
+          with zipfile.ZipFile('dist/PDF-Studio-Windows.zip') as package:
+              names = package.namelist()
+              assert 'PDF-Studio/PDF-Studio.exe' in names
+              assert any('pdfium' in name.lower() and name.endswith('.dll') for name in names)
+              assert any('pikepdf' in name.lower() and name.endswith('.pyd') for name in names)
+              assert any('licenses/' in name and 'pdfium' in name.lower() for name in names)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PDF-Studio-Windows
+          path: |
+            dist/PDF-Studio-Windows.zip
+            dist/PDF-Studio-Source.zip
+          if-no-files-found: error
+          retention-days: 30
+      - name: Upload test and smoke reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification-reports
+          path: |
+            test-results.xml
+            dist/smoke-report.json
+          if-no-files-found: warn
