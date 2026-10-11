@@ -3,6 +3,11 @@
 Ein nativer, deutscher PDF-Seiteneditor für Windows. PDFs bleiben vollständig
 auf deinem Gerät: keine Telemetrie, keine Cloud und keine Netzwerkzugriffe der Anwendung.
 
+![PDF Studio mit geladenen Seiten und Mehrfachauswahl](docs/screenshots/workspace.png)
+
+Echter Screenshot der Qt-Oberfläche, unter Linux mit einem lokal erzeugten
+Beispieldokument aufgenommen. [Leeres Startfenster](docs/screenshots/empty.png).
+
 ## Funktionen
 
 - Mehrere PDFs über Dateidialog, Dateidrop oder Kommandozeile hinzufügen.
@@ -107,7 +112,10 @@ pypdfium2 5.3.0 und Pillow 12.0.0. Festgelegte Versionen stehen in
 `requirements.txt`; Test-/Buildwerkzeuge in `requirements-dev.txt`.
 Details und Quelllinks: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 Der Build übernimmt Lizenztexte der installierten Wheels einschließlich
-PDFium-/Qt-Drittkomponenten in das Windows-Paket.
+PDFium-Drittkomponenten und ergänzt Qt-Lizenzen sowie Attributionsdateien aus
+den offiziellen Qt-/PySide6-Quellen. Die vollständigen Qt-/PySide6-Quellarchive
+stehen im Release als `PDF-Studio-Library-Sources.zip` bereit. Nur dieser
+Buildschritt lädt Quellen herunter; die fertige Anwendung bleibt offline.
 
 ## Bekannte Einschränkungen
 

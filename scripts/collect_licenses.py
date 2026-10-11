@@ -30,6 +30,8 @@ def collectLicenses(destination):
                          "urls": distribution.metadata.get_all("Project-URL") or [], "files": copied})
     for name in ["PySide6_Essentials", "shiboken6", "pikepdf", "pypdfium2", "pillow"]:
         matching = [entry for entry in manifest if entry["name"].lower().replace("-", "_") == name.lower()]
+        if matching and not matching[0]["files"] and name in ("PySide6_Essentials", "shiboken6"):
+            matching[0]["files"] = [str(path.relative_to(destination)) for path in (destination / "upstream/pyside").rglob("*") if path.is_file()]
         if not matching or not matching[0]["files"]:
             raise RuntimeError(f"Missing license files: {name}")
     candidates = [Path(sys.base_prefix) / "LICENSE.txt", Path(sys.base_prefix) / "lib/python3.12/LICENSE.txt"]

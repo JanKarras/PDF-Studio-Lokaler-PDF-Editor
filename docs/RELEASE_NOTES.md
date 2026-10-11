@@ -13,4 +13,4 @@ Der Release-Workflow veröffentlicht diese Dateien erst nach erfolgreichen PDF-/
 
 Passwortgeschützte PDFs, OCR, direkte Textbearbeitung, Signaturen und Formularbearbeitung sind nicht enthalten. Export erstellt ein neues Seitendokument; dokumentweite Lesezeichen, Anlagen und digitale Signaturen werden nicht übernommen. Die Anwendung ist nicht mit einem Windows-Code-Signing-Zertifikat signiert.
 
-Lizenz: GPL-3.0-or-later. Quellcode: PDF-Studio-Source.zip. Bibliothekslizenzen: licenses im Windows-Paket.
+Lizenz: GPL-3.0-or-later. Quellcode: PDF-Studio-Source.zip. Qt-/PySide6-Quellen: PDF-Studio-Library-Sources.zip. Bibliothekslizenzen: licenses im Windows-Paket.

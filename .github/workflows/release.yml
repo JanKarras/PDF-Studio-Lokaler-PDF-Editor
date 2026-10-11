@@ -28,5 +28,6 @@ jobs:
         run: |
           test -s release-assets/PDF-Studio-Windows.zip
           test -s release-assets/PDF-Studio-Source.zip
+          test -s release-assets/PDF-Studio-Library-Sources.zip
           unzip -t release-assets/PDF-Studio-Windows.zip
-          gh release create "$RELEASE_TAG" release-assets/PDF-Studio-Windows.zip release-assets/PDF-Studio-Source.zip --verify-tag --title "PDF Studio $RELEASE_TAG" --notes-file docs/RELEASE_NOTES.md
+          gh release create "$RELEASE_TAG" release-assets/PDF-Studio-Windows.zip release-assets/PDF-Studio-Source.zip release-assets/PDF-Studio-Library-Sources.zip --verify-tag --title "PDF Studio $RELEASE_TAG" --notes-file docs/RELEASE_NOTES.md

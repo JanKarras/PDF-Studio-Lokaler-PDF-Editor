@@ -1,4 +1,4 @@
-from PySide6.QtCore import QSize, Qt
+from PySide6.QtCore import QRect, QSize, Qt
 from PySide6.QtGui import QColor, QPainter, QFont
 from PySide6.QtWidgets import QAbstractItemView
 
@@ -19,7 +19,7 @@ class PageGrid(DropGrid):
         self.setAcceptDrops(True)
         self.setSpacing(12)
         self.setIconSize(QSize(180, 230))
-        self.setGridSize(QSize(210, 280))
+        self.setGridSize(QSize(220, 318))
         self.setUniformItemSizes(True)
         self.setVerticalScrollMode(QAbstractItemView.ScrollMode.ScrollPerPixel)
         self.setWordWrap(False)
@@ -34,8 +34,10 @@ class PageGrid(DropGrid):
             painter.drawRoundedRect(box, 20, 20)
             painter.setPen(QColor("#ebeff7"))
             painter.setFont(QFont("Segoe UI", 22, QFont.Weight.DemiBold))
-            painter.drawText(box.adjusted(0, -65, 0, 0), Qt.AlignmentFlag.AlignCenter, "Deine PDFs. Dein Arbeitsbereich.")
+            headingBox = QRect(box.left() + 12, box.center().y() - 95, box.width() - 24, 55)
+            painter.drawText(headingBox, Qt.AlignmentFlag.AlignCenter, "Deine PDFs. Dein Arbeitsbereich.")
             painter.setFont(QFont("Segoe UI", 12))
             painter.setPen(QColor("#a9b6cb"))
-            painter.drawText(box.adjusted(0, 35, 0, 0), Qt.AlignmentFlag.AlignCenter,
+            bodyBox = QRect(box.left() + 12, box.center().y() - 25, box.width() - 24, 105)
+            painter.drawText(bodyBox, Qt.AlignmentFlag.AlignCenter,
                              "PDF-Dateien hier ablegen\noder mit › PDFs öffnen ‹ starten\n\nLokal bearbeiten · Sicher exportieren · Ohne Cloud")

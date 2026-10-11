@@ -27,6 +27,15 @@ Der Build kopiert die Lizenzdateien **der tatsächlich installierten Wheels**
 einschließlich PDFium-BUILD_LICENSES und Qt-Lizenzdateien in den Ordner licenses.
 Qt-6.10.1-Quellen sind außerdem unter
 https://download.qt.io/archive/qt/6.10/6.10.1/single/ verfügbar.
+Da die Qt-Wheels nicht alle Open-Source-Lizenztexte mitliefern, sammelt der Build
+zusätzlich Lizenztexte, Copyright-Hinweise und Attributionsdateien aus den
+unveränderten QtBase-, QtSvg-, QtImageFormats- und PySide6-Quellen der Version
+6.10.1. Diese liegen in licenses/upstream. Die vollständigen zugehörigen Quellen
+werden im selben Release als PDF-Studio-Library-Sources.zip angeboten; das
+Quellmanifest enthält die konkreten URLs und SHA-256-Prüfsummen.
+Der unbenutzte Qt-PDF-Bildformatplugin wird nicht mitverteilt. PDF-Rendering
+erfolgt ausschließlich durch das gesondert lizenzierte pypdfium2/PDFium.
+
 Das Manifest enthält Namen, Versionen und Projekt-/Quelllinks aller installierten
 Pakete. Python-Lizenztexte werden ebenfalls übernommen. Die zugehörigen Quellen
 von PDF Studio werden als PDF-Studio-Source.zip zusammen mit dem Windows-Paket

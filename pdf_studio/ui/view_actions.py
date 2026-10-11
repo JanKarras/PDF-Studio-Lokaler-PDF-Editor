@@ -10,6 +10,7 @@ class ViewActions:
         self.grid.clear()
         for index, page in enumerate(self.history.pages):
             item = QListWidgetItem(f"Seite {index + 1}\n{page.original.name}")
+            item.setSizeHint(self.grid.gridSize() - QSize(14, 14))
             item.setData(Qt.ItemDataRole.UserRole, page.id)
             item.setToolTip(f"Seite {index + 1} · {page.original.name}\nQuellseite {page.index + 1} · Drehung {page.rotation}°")
             self.grid.addItem(item)
@@ -42,7 +43,9 @@ class ViewActions:
 
     def zoomChanged(self, value):
         self.grid.setIconSize(QSize(value, int(value * 1.28)))
-        self.grid.setGridSize(QSize(value + 30, int(value * 1.28) + 50))
+        self.grid.setGridSize(QSize(value + 40, int(value * 1.28) + 88))
+        for index in range(self.grid.count()):
+            self.grid.item(index).setSizeHint(self.grid.gridSize() - QSize(14, 14))
         self.scheduleThumbnails()
 
     def scheduleThumbnails(self):

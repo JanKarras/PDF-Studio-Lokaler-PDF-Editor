@@ -58,4 +58,6 @@ def testZoomAndDisabledActions(window, app, pdfFiles):
     waitUntil(app, lambda: not window.busy)
     window.zoomSlider.setValue(260)
     assert window.grid.iconSize().width() == 260
+    app.processEvents()
+    assert window.grid.visualItemRect(window.grid.item(0)).height() >= window.grid.iconSize().height() + 40
     assert window.actionsMap["save"].isEnabled()

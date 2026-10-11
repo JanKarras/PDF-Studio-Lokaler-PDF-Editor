@@ -62,12 +62,16 @@ jobs:
               assert any('pdfium' in name.lower() and name.endswith('.dll') for name in names)
               assert any('pikepdf' in name.lower() and name.endswith('.pyd') for name in names)
               assert any('licenses/' in name and 'pdfium' in name.lower() for name in names)
+              assert any(name.endswith('LGPL-3.0-only.txt') for name in names)
+              assert any('upstream/qtbase/' in name and 'attribution' in name.lower() for name in names)
+              assert not any(name.endswith('Qt6Pdf.dll') for name in names)
       - uses: actions/upload-artifact@v7
         with:
           name: PDF-Studio-Windows
           path: |
             dist/PDF-Studio-Windows.zip
             dist/PDF-Studio-Source.zip
+            dist/PDF-Studio-Library-Sources.zip
           if-no-files-found: error
           retention-days: 30
       - name: Upload test and smoke reports

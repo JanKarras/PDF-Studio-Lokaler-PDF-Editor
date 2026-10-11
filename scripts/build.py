@@ -6,14 +6,17 @@ import zipfile
 
 from collect_licenses import collectLicenses
 from create_icon import createIcon
+from vendor_licenses import collectVendorLicenses
 
 
 def build():
+    collectVendorLicenses("licenses/generated/upstream")
     collectLicenses("licenses/generated")
     createIcon()
     subprocess.run([sys.executable, "-m", "PyInstaller", "--noconfirm", "--clean", "PDF-Studio.spec"], check=True)
     destination = Path("dist/PDF-Studio")
     shutil.copytree("licenses/generated", destination / "licenses", dirs_exist_ok=True)
+    shutil.copytree("docs", destination / "docs", dirs_exist_ok=True)
     for name in ["README.md", "LICENSE", "THIRD_PARTY_NOTICES.md"]:
         shutil.copy2(name, destination / name)
     executable = destination / ("PDF-Studio.exe" if sys.platform == "win32" else "PDF-Studio")

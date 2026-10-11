@@ -11,6 +11,10 @@ for package in ('pikepdf', 'pypdfium2', 'pypdfium2_raw'):
 a = Analysis(['run_studio.py'], pathex=['.'], binaries=allBinaries,
              datas=allData, hiddenimports=allHidden, hookspath=[],
              excludes=['tkinter', 'PySide6.QtTest'], noarchive=False)
+# Qt's optional PDF image plugin is unused: rendering uses pypdfium2.
+# Excluding it avoids shipping a second PDFium implementation via QtWebEngine.
+a.binaries = [entry for entry in a.binaries
+              if entry[0].replace('\\', '/').rsplit('/', 1)[-1].lower() not in ('qpdf.dll', 'libqpdf.so', 'qt6pdf.dll', 'libqt6pdf.so.6')]
 pyz = PYZ(a.pure)
 exe = EXE(pyz, a.scripts, [], exclude_binaries=True, name='PDF-Studio',
           debug=False, strip=False, upx=False, console=False, icon='build/pdf-studio.ico')

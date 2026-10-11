@@ -39,7 +39,11 @@ def capture():
         source = Path(directory) / "Projektmappe.pdf"
         createDemo(source)
         window = MainWindow()
+        window.resize(1180, 860)
         window.show()
+        application.processEvents()
+        Path("docs/screenshots").mkdir(exist_ok=True)
+        assert window.grab().save("docs/screenshots/empty.png")
         window.addFiles([str(source)])
         deadline = time.monotonic() + 15
         while (window.busy or len(window.thumbnailCache) < 6) and time.monotonic() < deadline:
