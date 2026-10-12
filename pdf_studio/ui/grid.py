@@ -27,6 +27,7 @@ class PageGrid(DropGrid):
 
     def paintEvent(self, event):
         super().paintEvent(event)
+        self.paintDropMarker()
         if not self.count():
             painter = QPainter(self.viewport())
             box = self.viewport().rect().adjusted(36, 36, -36, -36)

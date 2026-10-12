@@ -1,9 +1,10 @@
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QDrag
 from PySide6.QtWidgets import QListWidget
+from .drag_feedback import DragFeedback
 
 
-class DropGrid(QListWidget):
+class DropGrid(DragFeedback, QListWidget):
     filesDropped = Signal(list)
     pagesMoved = Signal(list, int)
 
@@ -16,10 +17,16 @@ class DropGrid(QListWidget):
     def dragMoveEvent(self, event):
         if event.mimeData().hasUrls():
             event.acceptProposedAction()
+        elif event.source() is self:
+            self.updateDropMarker(event.position().toPoint())
+            event.setDropAction(Qt.DropAction.MoveAction)
+            event.accept()
         else:
-            super().dragMoveEvent(event)
+            event.ignore()
 
     def dropEvent(self, event):
+        self.dropMarker = None
+        self.viewport().update()
         if event.mimeData().hasUrls():
             paths = [url.toLocalFile() for url in event.mimeData().urls() if url.isLocalFile()]
             self.filesDropped.emit(paths)

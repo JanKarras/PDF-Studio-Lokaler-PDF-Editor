@@ -30,7 +30,7 @@ class LifecycleActions:
 
     def about(self):
         QMessageBox.information(self, "Über PDF Studio",
-            "PDF Studio 1.0.0\n\nPDFs lokal ordnen, drehen, zusammenfügen und aufteilen.\n"
+            "PDF Studio 1.0.1\n\nPDFs lokal ordnen, drehen, zusammenfügen und aufteilen.\n"
             "Keine Telemetrie. Keine Cloud.\n\nGPL-3.0-or-later · Quellcode auf GitHub\n"
             "JanKarras/PDF-Studio-Lokaler-PDF-Editor\n\n"
             "Lizenztexte und Bibliothekshinweise befinden sich im Ordner licenses des Programmpakets.")

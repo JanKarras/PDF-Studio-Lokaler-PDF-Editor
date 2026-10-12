@@ -23,7 +23,7 @@ Beispieldokument aufgenommen. [Leeres Startfenster](docs/screenshots/empty.png).
 ## Windows-Version herunterladen
 
 [GitHub Releases](https://github.com/JanKarras/PDF-Studio-Lokaler-PDF-Editor/releases)
-öffnen und beim Release **v1.0.0** `PDF-Studio-Windows.zip` herunterladen.
+öffnen und beim Release **v1.0.1** `PDF-Studio-Windows.zip` herunterladen.
 Das gesamte ZIP entpacken und `PDF-Studio/PDF-Studio.exe` starten.
 Keine Python-Installation notwendig. `_internal` und `licenses` gehören zum
 Programmpaket und müssen zusammen mit der EXE im entpackten Ordner bleiben.
